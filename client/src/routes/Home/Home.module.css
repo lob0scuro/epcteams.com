@@ -1,0 +1,70 @@
+.homeDashboard {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+}
+
+.homeDashboard h1 {
+  margin-bottom: 0;
+}
+
+.volunteerList {
+  margin-top: 1rem;
+}
+.volunteerList p {
+  margin-left: 0.2rem;
+  font-weight: 700;
+}
+.volunteerListHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.volunteerListHeader button {
+  margin-right: 0.5rem;
+}
+
+.volunteerList ul {
+  list-style-type: none;
+  width: 100%;
+  height: 10rem;
+  border-radius: 8px;
+  box-shadow: inset 2px 2px 6px #ccc;
+  overflow-y: auto;
+  padding: 0.6rem;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  row-gap: 25px;
+  justify-items: start;
+
+  background-color: #fefefe;
+}
+
+.volunteerList ul li {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+p.editVolunteersButton {
+  justify-self: flex-end;
+  margin-right: 10px;
+  margin-top: 10px;
+  text-decoration: underline;
+  color: var(--blue);
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.dashboardSchedule {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5rem;
+}
+
+.dashboardSchedule h2 {
+  font-size: 3rem;
+  text-decoration: underline;
+}

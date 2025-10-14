@@ -1,0 +1,29 @@
+form.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+form.loginForm select {
+  text-align: start;
+  height: 2rem;
+  font-size: 18px;
+  padding-inline: 1rem;
+  border-radius: 8px;
+  border: none;
+  box-shadow: inset -2px 1px 4px #ccc;
+}
+
+form.loginForm div input {
+  font-size: 18px;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  box-shadow: inset -2px 1px 3px #ccc;
+}
+
+form.loginForm button {
+  margin-top: 1rem;
+}
