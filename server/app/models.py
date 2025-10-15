@@ -33,6 +33,7 @@ class User(db.Model, UserMixin):
             'last_name': self.last_name,
             'email': self.email, 
             'team': self.team.name if self.team else None,
+            'team_id': self.team.id if self.team else None,
             'volunteers': [v.serialize() for v in self.get_volunteers()]
         }
         
@@ -101,8 +102,9 @@ class Schedule(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "date": self.date,
+            "scheduled_date": self.date.isoformat(),
             "volunteer": self.volunteer.serialize(),
+            "volunteer_name": f"{self.volunteer.first_name} {self.volunteer.last_name}",
             "team": self.team.name,
             "notes": self.notes,
         }

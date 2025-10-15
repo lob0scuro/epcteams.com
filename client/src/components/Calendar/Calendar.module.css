@@ -1,0 +1,87 @@
+.calendarContainer {
+  width: 100%;
+}
+
+.calendarContainer h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+.calendarContainer h2 span button {
+  background-color: var(--black);
+  box-shadow: unset;
+  color: var(--white);
+  padding: 2px 8px;
+  border-radius: 4px;
+  /* text-decoration: underline; */
+  /* border: 2px solid var(--black); */
+  font-size: 16px;
+  font-weight: 500;
+}
+.weeklyColumn {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-top: 0rem;
+}
+
+button.assignVolunteer {
+  padding: 2px 6px;
+  font-size: 14px;
+  border-radius: 2px;
+  margin-bottom: 10px;
+  background-color: var(--brown);
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.weeklyColumn h3 {
+  width: 100%;
+  text-align: center;
+  border: 1px solid var(--black);
+  font-size: 0.8rem;
+  padding-block: 4px;
+}
+
+.volunteersForThisWeek {
+  width: 100%;
+  height: 18rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.listBody {
+  border-left: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+  border-right: 1px solid var(--black);
+
+  width: 100%;
+  height: 12rem;
+  overflow-y: auto;
+  text-align: center;
+  list-style-type: none;
+  padding-top: 0.2rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.listBody li {
+  font-size: 12px;
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.vSelect {
+  width: fit-content;
+  font-size: 14px;
+  position: absolute;
+  top: -40px;
+}

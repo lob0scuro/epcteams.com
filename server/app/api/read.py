@@ -23,3 +23,17 @@ def get_users():
         print(f"Error when fetching users: {e}")
         return jsonify(success=False, message=f"Error when fetching users: {e}"), 500
     
+@read_bp.route("/get_schedule/<int:team_id>", methods=["GET"])
+def get_schedule(team_id):
+    try:
+        schedule = Schedule.query.filter_by(team_id=team_id).all()
+        if len(schedule) == 0:
+            return jsonify(success=True, message="No volunteers have been scheduled for your team."), 200
+        if not schedule:
+            return jsonify(success=False, message="Schedule not found."), 400
+        return jsonify(success=True, schedule=[s.serialize() for s in schedule]), 200
+    except Exception as e:
+        print(f"Error when fetch schedule: {e}")
+        return jsonify(success=False, message=f"Error when fetch schedule: {e}"), 500
+    
+    

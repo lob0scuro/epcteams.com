@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../Context/AuthContext";
 import { getTeamLabel, getSundaysInMonth } from "../../utils/Helpers";
 import VolunteerForm from "../../components/Forms/VolunteerForm";
+import Calendar from "../../components/Calendar/Calendar";
 
 const Home = () => {
   const { user } = useAuth();
@@ -56,7 +57,8 @@ const Home = () => {
         <p className={styles.editVolunteersButton}>Edit Volunteers</p>
       </div>
       <div className={styles.dashboardSchedule}>
-        <h2>{currentMonth}</h2>
+        {/* <h2>{currentMonth}</h2> */}
+        <Calendar volunteers={volunteers} />
       </div>
     </div>
   );

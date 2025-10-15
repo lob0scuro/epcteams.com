@@ -22,3 +22,11 @@ export function getSundaysInMonth(year, month) {
 
   return sundays;
 }
+
+export const formatDate = (d) => {
+  const dateObj = new Date(d);
+  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  const day = String(dateObj.getDate()).padStart(2, "0");
+  const year = dateObj.getFullYear();
+  return `${month}/${day}/${year}`; // MM/DD/YYYY
+};

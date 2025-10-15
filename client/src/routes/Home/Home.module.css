@@ -9,7 +9,7 @@
 }
 
 .volunteerList {
-  margin-top: 1rem;
+  margin: 1.2rem 0.4rem;
 }
 .volunteerList p {
   margin-left: 0.2rem;
@@ -61,10 +61,10 @@ p.editVolunteersButton {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 5rem;
+  margin-top: 3rem;
 }
-
+/* 
 .dashboardSchedule h2 {
-  font-size: 3rem;
+  font-size: 1rem;
   text-decoration: underline;
-}
+} */
