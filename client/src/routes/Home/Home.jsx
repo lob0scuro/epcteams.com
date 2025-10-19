@@ -12,6 +12,7 @@ const Home = () => {
   const [adding, setAdding] = useState(false);
   const [vControls, setVControls] = useState([]);
   const [volunteers, setVolunteers] = useState(user.volunteers || []);
+  const [vol, setVol] = useState(null);
   const now = new Date();
   const [month, setMonth] = useState(now.getMonth());
   const sundays = getSundaysInMonth(now.getFullYear(), month).map((d) =>
@@ -24,6 +25,11 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    adding === false && setVol(null);
+  }, [adding]);
+
+  useEffect(() => {
+    setVol(null);
     setVControls(Array(volunteers.length).fill(false));
   }, [volunteers]);
 
@@ -45,6 +51,7 @@ const Home = () => {
           onAdd={(newVolunteer) =>
             setVolunteers((prev) => [...prev, newVolunteer])
           }
+          vol={vol}
         />
       )}
       <h1>Hello, {user.first_name}</h1>
@@ -69,7 +76,14 @@ const Home = () => {
                 </span>
                 {vControls[index] && (
                   <span className={styles.vControlsButtons}>
-                    <button>edit</button>
+                    <button
+                      onClick={() => {
+                        setVol({ id, first_name, last_name });
+                        setAdding(true);
+                      }}
+                    >
+                      edit
+                    </button>
                     <button onClick={() => deleteVolunteer(id)}>delete</button>
                   </span>
                 )}

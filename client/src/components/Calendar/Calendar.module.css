@@ -78,7 +78,7 @@ button.assignVolunteer {
   text-decoration: underline;
 }
 
-.vSelect {
+ul.listBody select.vSelect {
   width: 100%;
   position: absolute;
   bottom: 0;

@@ -4,6 +4,7 @@ form.loginForm {
   align-items: center;
   gap: 1rem;
   padding: 2rem;
+  position: relative;
 }
 
 form.loginForm select {
@@ -14,6 +15,7 @@ form.loginForm select {
   border-radius: 8px;
   border: none;
   box-shadow: inset -2px 1px 4px #ccc;
+  position: relative;
 }
 
 form.loginForm div input {

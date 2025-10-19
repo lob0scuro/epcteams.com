@@ -1,12 +1,12 @@
 import styles from "./VolunteerForm.module.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
-const VolunteerForm = ({ func, onAdd }) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+const VolunteerForm = ({ func, onAdd, vol }) => {
+  const [firstName, setFirstName] = useState(vol ? vol.first_name : "");
+  const [lastName, setLastName] = useState(vol ? vol.last_name : "");
 
   const closeModal = () => {
     func(false);
@@ -19,15 +19,23 @@ const VolunteerForm = ({ func, onAdd }) => {
       first_name: firstName,
       last_name: lastName,
     };
+    const options = {
+      method: vol ? "PATCH" : "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    options.body = JSON.stringify(inputs);
+
+    const endpoint = vol
+      ? `/api/edit/edit_volunteer/${vol.id}`
+      : "/api/create/add_volunteer";
+
     try {
-      const response = await fetch("/api/create/add_volunteer", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(inputs),
-      });
+      const response = await fetch(endpoint, options);
+
       if (!response.ok) {
         throw new Error(
           "There was an error when submitting request to server."
@@ -38,7 +46,7 @@ const VolunteerForm = ({ func, onAdd }) => {
         throw new Error(data.message);
       }
       toast.success(data.message);
-      if (onAdd) {
+      if (onAdd && !vol) {
         onAdd({
           id: data.volunteer.id,
           first_name: data.volunteer.first_name,

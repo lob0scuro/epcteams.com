@@ -16,7 +16,7 @@ def edit_volunteer(id):
         volunteer.first_name = data.get("first_name", volunteer.first_name)
         volunteer.last_name = data.get("last_name", volunteer.last_name)
         db.session.commit()
-        return jsonify(success=True, message="Volunteer information updated."), 200
+        return jsonify(success=True, message="Volunteer information updated. You may need to refresh screen to apply changes."), 200
     except Exception as e:
         print(f"There was an error when editing volunteer: {e}")
         db.session.rollback()
