@@ -6,17 +6,16 @@
   text-align: center;
   margin-bottom: 24px;
   display: flex;
-  justify-content: center;
-  gap: 18px;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-inline: 2rem;
 }
 .calendarContainer h2 span button {
   background-color: var(--black);
   box-shadow: unset;
   color: var(--white);
-  padding: 2px 8px;
+  padding: 6px 10px;
   border-radius: 4px;
-  /* text-decoration: underline; */
-  /* border: 2px solid var(--black); */
   font-size: 16px;
   font-weight: 500;
 }
@@ -52,10 +51,10 @@ button.assignVolunteer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
 }
 
 .listBody {
+  position: relative;
   border-left: 1px solid var(--black);
   border-bottom: 1px solid var(--black);
   border-right: 1px solid var(--black);
@@ -80,8 +79,14 @@ button.assignVolunteer {
 }
 
 .vSelect {
-  width: fit-content;
-  font-size: 14px;
+  width: 100%;
   position: absolute;
-  top: -40px;
+  bottom: 0;
+  border-radius: 2px;
+  font-size: 10px;
+}
+
+.vSelect option {
+  font-size: 12px;
+  text-align: center;
 }

@@ -28,7 +28,7 @@
 .volunteerList ul {
   list-style-type: none;
   width: 100%;
-  height: 10rem;
+  height: 12rem;
   border-radius: 8px;
   box-shadow: inset 2px 2px 6px #ccc;
   overflow-y: auto;
@@ -37,14 +37,39 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   row-gap: 25px;
+  column-gap: 12px;
   justify-items: start;
 
   background-color: #fefefe;
 }
 
 .volunteerList ul li {
-  font-size: 1.1rem;
+  font-size: 14px;
+  height: 50px;
+  width: 100%;
   font-weight: 600;
+  box-shadow: -1px 1px 4px #888, inset 2px -1px 3px #777;
+  border-radius: 4px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 2px;
+
+  background-color: var(--white);
+}
+.volunteerList ul li.addLiButton {
+  background-color: var(--gold);
+  box-shadow: -1px 1px 3px #000;
+  color: var(--deepGold);
+  border: 1px solid #000;
+  height: 40px;
+  width: 90%;
+  align-self: center;
+  justify-self: center;
+}
+.volunteerList ul li:hover {
+  box-shadow: 2px -2px 4px #ccc, inset 1px 0 3px #444;
 }
 
 p.editVolunteersButton {
@@ -63,8 +88,3 @@ p.editVolunteersButton {
   align-items: center;
   margin-top: 3rem;
 }
-/* 
-.dashboardSchedule h2 {
-  font-size: 1rem;
-  text-decoration: underline;
-} */

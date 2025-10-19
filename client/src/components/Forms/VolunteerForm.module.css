@@ -48,6 +48,7 @@
   padding: 8px 4px;
   border-radius: 8px;
   border: inset 1px 2px 4px #ccc;
+  width: 80%;
 }
 
 .volunteerForm button {

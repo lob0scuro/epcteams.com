@@ -2,6 +2,7 @@ import styles from "./Home.module.css";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../Context/AuthContext";
 import { getTeamLabel, getSundaysInMonth } from "../../utils/Helpers";
+import { handleDelete } from "../../utils/ApiCalls";
 import VolunteerForm from "../../components/Forms/VolunteerForm";
 import Calendar from "../../components/Calendar/Calendar";
 
@@ -35,24 +36,22 @@ const Home = () => {
       <div className={styles.volunteerList}>
         <div className={styles.volunteerListHeader}>
           <p>Volunteers:</p>
-          <div>
+          {/* <div>
             <button className="secondary" onClick={() => setAdding(true)}>
               Add Volunteer
             </button>
-          </div>
+          </div> */}
         </div>
         <ul>
-          {volunteers.length !== 0 ? (
+          {volunteers.length !== 0 &&
             volunteers.map(({ first_name, last_name, id }) => (
               <li key={id}>
                 {first_name} {last_name}
               </li>
-            ))
-          ) : (
-            <p style={{ alignSelf: "center", justifySelf: "center" }}>
-              Add Volunteers
-            </p>
-          )}
+            ))}
+          <li className={styles.addLiButton} onClick={() => setAdding(true)}>
+            Add Volunteer
+          </li>
         </ul>
         <p className={styles.editVolunteersButton}>Edit Volunteers</p>
       </div>

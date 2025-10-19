@@ -1,6 +1,7 @@
 import styles from "./Calendar.module.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { getSundaysInMonth, formatDate } from "../../utils/Helpers";
+import { handleDelete } from "../../utils/ApiCalls";
 import { useAuth } from "../../Context/AuthContext";
 import toast from "react-hot-toast";
 
@@ -15,8 +16,9 @@ const Calendar = ({ volunteers = [] }) => {
     today.toLocaleString("default", { month: "long" })
   );
 
-  const sundays = getSundaysInMonth(year, month).map((t) =>
-    t.toLocaleDateString()
+  const sundays = useMemo(
+    () => getSundaysInMonth(year, month).map((t) => t.toLocaleDateString()),
+    [year, month]
   );
 
   // Reset assigning when month changes
@@ -89,6 +91,47 @@ const Calendar = ({ volunteers = [] }) => {
     toast.success(`${v.first_name} added to ${assigned_date}`);
   };
 
+  //DELETE handlers
+  const handleDelete = async (endpoint, volunteer_id, date = {}) => {
+    if (!confirm("Remove volunteer?")) {
+      return;
+    }
+    try {
+      const options = {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      if (date) {
+        options.body = JSON.stringify({ date });
+      }
+      const response = await fetch(
+        `/api/delete/${endpoint}/${volunteer_id}`,
+        options
+      );
+      const data = await response.json();
+      if (!data.success) {
+        throw new Error(data.message);
+      }
+      setScheduled((prev) =>
+        prev.filter(
+          (s) =>
+            !(
+              s.volunteer.id === volunteer_id &&
+              (!date || formatDate(s.scheduled_date) === formatDate(date))
+            )
+        )
+      );
+      toast.success(data.message);
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message);
+      return { success: false, message: error.message };
+    }
+  };
+
   // Handle month navigation
   const handlePrevMonth = () => {
     let newMonth = month - 1;
@@ -146,30 +189,41 @@ const Calendar = ({ volunteers = [] }) => {
               {assigning[index] ? "Cancel" : "Assign"}
             </button>
 
-            {assigning[index] && (
-              <select
-                name="volunteer_id"
-                onChange={(e) => handleSubmit(Number(e.target.value), date)}
-                className={styles.vSelect}
-              >
-                <option value="">--select volunteer--</option>
-                {volunteers.map(({ id, first_name, last_name }) => (
-                  <option value={id} key={id}>
-                    {first_name} {last_name}
-                  </option>
-                ))}
-              </select>
-            )}
-
             <h3>{date}</h3>
 
             <ul className={styles.listBody}>
+              {assigning[index] && (
+                <select
+                  name="volunteer_id"
+                  onChange={(e) => handleSubmit(Number(e.target.value), date)}
+                  className={styles.vSelect}
+                  autoFocus
+                >
+                  <option value="">--select volunteer--</option>
+                  {volunteers.map(({ id, first_name, last_name }) => (
+                    <option value={id} key={id}>
+                      {first_name} {last_name}
+                    </option>
+                  ))}
+                </select>
+              )}
               {scheduled
                 ?.filter(
                   (s) => formatDate(s.scheduled_date) === formatDate(date)
                 )
                 .map((s) => (
-                  <li key={s.id}>{s.volunteer_name}</li>
+                  <li
+                    key={s.id}
+                    onClick={() =>
+                      handleDelete(
+                        "unassign_volunteer",
+                        s.volunteer.id,
+                        s.scheduled_date
+                      )
+                    }
+                  >
+                    {s.volunteer_name}
+                  </li>
                 ))}
             </ul>
           </div>
