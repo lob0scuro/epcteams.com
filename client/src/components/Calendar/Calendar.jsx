@@ -51,12 +51,12 @@ const Calendar = ({ volunteers = [] }) => {
       }
     };
     fetchSchedule();
-  }, [user.team_id, month, year]);
+  }, [user.team_id, month, year, assigning]);
 
   // Assign volunteer
   const handleSubmit = async (volunteer_id, assigned_date) => {
     // Prevent duplicates
-    const alreadyScheduled = scheduled.some(
+    const alreadyScheduled = scheduled?.some(
       (s) =>
         s.volunteer.id === volunteer_id &&
         formatDate(s.scheduled_date) === formatDate(assigned_date)
@@ -87,7 +87,9 @@ const Calendar = ({ volunteers = [] }) => {
     }
 
     setAssigning(Array(sundays.length).fill(false));
-    setScheduled((prev) => [...prev, data.schedule]);
+    if (scheduled?.length > 0) {
+      setScheduled((prev) => [...prev, data.schedule]);
+    }
     toast.success(`${v.first_name} added to ${assigned_date}`);
   };
 

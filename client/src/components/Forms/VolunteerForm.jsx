@@ -14,6 +14,7 @@ const VolunteerForm = ({ func, onAdd }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const inputs = {
       first_name: firstName,
       last_name: lastName,

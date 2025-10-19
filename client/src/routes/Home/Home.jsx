@@ -5,10 +5,12 @@ import { getTeamLabel, getSundaysInMonth } from "../../utils/Helpers";
 import { handleDelete } from "../../utils/ApiCalls";
 import VolunteerForm from "../../components/Forms/VolunteerForm";
 import Calendar from "../../components/Calendar/Calendar";
+import toast from "react-hot-toast";
 
 const Home = () => {
   const { user } = useAuth();
   const [adding, setAdding] = useState(false);
+  const [vControls, setVControls] = useState([]);
   const [volunteers, setVolunteers] = useState(user.volunteers || []);
   const now = new Date();
   const [month, setMonth] = useState(now.getMonth());
@@ -20,6 +22,20 @@ const Home = () => {
   useEffect(() => {
     setVolunteers(user.volunteers || []);
   }, []);
+
+  useEffect(() => {
+    setVControls(Array(volunteers.length).fill(false));
+  }, [volunteers]);
+
+  const deleteVolunteer = async (id) => {
+    if (!confirm("Are you sure you want to delete this volunteer?")) return;
+    const response = await handleDelete("delete_volunteer", id);
+    if (!response.success) {
+      toast.error(response.message);
+    }
+    setVolunteers((prev) => prev.filter((volunteer) => volunteer.id !== id));
+    toast.success(response.message);
+  };
 
   return (
     <div className={styles.homeDashboard}>
@@ -35,28 +51,36 @@ const Home = () => {
       <p>Team: {getTeamLabel(user.team)}</p>
       <div className={styles.volunteerList}>
         <div className={styles.volunteerListHeader}>
-          <p>Volunteers:</p>
-          {/* <div>
-            <button className="secondary" onClick={() => setAdding(true)}>
-              Add Volunteer
-            </button>
-          </div> */}
+          <p>Volunteers</p>
         </div>
         <ul>
           {volunteers.length !== 0 &&
-            volunteers.map(({ first_name, last_name, id }) => (
-              <li key={id}>
-                {first_name} {last_name}
+            volunteers.map(({ first_name, last_name, id }, index) => (
+              <li
+                key={id}
+                onClick={() => {
+                  const updated = [...vControls];
+                  updated[index] = !updated[index];
+                  setVControls(updated);
+                }}
+              >
+                <span>
+                  {first_name} {last_name}
+                </span>
+                {vControls[index] && (
+                  <span className={styles.vControlsButtons}>
+                    <button>edit</button>
+                    <button onClick={() => deleteVolunteer(id)}>delete</button>
+                  </span>
+                )}
               </li>
             ))}
           <li className={styles.addLiButton} onClick={() => setAdding(true)}>
             Add Volunteer
           </li>
         </ul>
-        <p className={styles.editVolunteersButton}>Edit Volunteers</p>
       </div>
       <div className={styles.dashboardSchedule}>
-        {/* <h2>{currentMonth}</h2> */}
         <Calendar volunteers={volunteers} />
       </div>
     </div>
