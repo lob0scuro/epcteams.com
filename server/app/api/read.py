@@ -23,6 +23,24 @@ def get_users():
         print(f"Error when fetching users: {e}")
         return jsonify(success=False, message=f"Error when fetching users: {e}"), 500
     
+@read_bp.route("/get_team/<int:id>", methods=["GET"])
+def get_team(id):
+    try:
+        team = Team.query.get(id)
+        return jsonify(success=True, team=team.serialize()), 200
+    except Exception as e:
+        print(f"Error when fetching team: {e}")
+        return jsonify(success=False, message=f"Error when fetching team: {e}"), 500
+    
+@read_bp.route("/get_teams", methods=["GET"])
+def get_teams():
+    try:
+        teams = Team.query.all()
+        return jsonify(success=True, teams=[t.serialize() for t in teams]), 200
+    except Exception as e:
+        print(f"Error when fetching teams: {e}")
+        return jsonify(success=False, message=f"Error when fetching teams: {e}"), 500
+
 @read_bp.route("/get_schedule/<int:team_id>", methods=["GET"])
 def get_schedule(team_id):
     try:

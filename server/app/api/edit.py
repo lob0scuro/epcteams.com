@@ -13,8 +13,8 @@ def edit_volunteer(id):
         return jsonify(success=False, message="Volunteer not found."), 400
     try:
         data = request.get_json()
-        volunteer.first_name = data.get("first_name", volunteer.first_name)
-        volunteer.last_name = data.get("last_name", volunteer.last_name)
+        volunteer.first_name = data.get("first_name", volunteer.first_name).capitalize()
+        volunteer.last_name = data.get("last_name", volunteer.last_name).capitalize()
         db.session.commit()
         return jsonify(success=True, message="Volunteer information updated. You may need to refresh screen to apply changes."), 200
     except Exception as e:
