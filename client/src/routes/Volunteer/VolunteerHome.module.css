@@ -1,0 +1,7 @@
+.volunteerHomeContainer {
+  padding-block: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+}

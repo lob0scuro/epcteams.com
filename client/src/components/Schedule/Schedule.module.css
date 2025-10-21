@@ -1,0 +1,30 @@
+.volunteerViewContainer {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  width: 80%;
+}
+
+.dateCard {
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.dateCard ul {
+  list-style-type: none;
+  padding: 0;
+  border: 1px solid #ccc;
+  width: 100%;
+  margin-top: 15px;
+}
+.dateCard li {
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+}
