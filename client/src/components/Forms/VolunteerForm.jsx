@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { handleDelete } from "../../utils/ApiCalls";
 
 const VolunteerForm = ({ func, onAdd, vol }) => {
   const [firstName, setFirstName] = useState(vol ? vol.first_name : "");
@@ -61,12 +62,24 @@ const VolunteerForm = ({ func, onAdd, vol }) => {
     }
   };
 
+  const deleteVolunteer = async (id) => {
+    if (!confirm("Are you sure you want to delete this volunteer?")) return;
+    const response = await handleDelete("delete_volunteer", id);
+    if (!response.success) {
+      toast.error(response.message);
+    }
+    // setVolunteers((prev) => prev.filter((volunteer) => volunteer.id !== id));
+    func(false);
+    vol = null;
+    toast.success(response.message);
+  };
+
   return (
     <form className={styles.volunteerForm}>
       <button className={styles.closeButton} onClick={closeModal}>
         <FontAwesomeIcon icon={faCircleXmark} />
       </button>
-      <h2>Add Volunteer</h2>
+      <h2>{vol ? "Edit Volunteer" : "Add Volunteer"}</h2>
       <div>
         <label htmlFor="first_name">First Name</label>
         <input
@@ -90,6 +103,14 @@ const VolunteerForm = ({ func, onAdd, vol }) => {
       <button onClick={handleSubmit} type="submit">
         Submit
       </button>
+      {vol && (
+        <p
+          onClick={() => deleteVolunteer(vol.id)}
+          className={styles.deleteVolunteerButton}
+        >
+          Delete Volunteer
+        </p>
+      )}
     </form>
   );
 };

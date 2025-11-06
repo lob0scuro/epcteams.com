@@ -84,6 +84,8 @@ ul.listBody select.vSelect {
   bottom: 0;
   border-radius: 2px;
   font-size: 10px;
+  color: var(--blue);
+  background-color: #fff;
 }
 
 .vSelect option {

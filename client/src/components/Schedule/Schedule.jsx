@@ -32,13 +32,13 @@ const Schedule = ({ team }) => {
   if (team === undefined) {
     return (
       <p style={{ marginTop: "2rem", fontStyle: "italic" }}>
-        Please select a team to view the schedule.
+        Team Lead has not scheduled for this month yet.
       </p>
     );
   } else if (schedule?.length === 0) {
     return (
       <p style={{ marginTop: "2rem", fontStyle: "italic" }}>
-        Team Lead has not scheduled for this month yet.
+        Please select a team to view the schedule.
       </p>
     );
   }

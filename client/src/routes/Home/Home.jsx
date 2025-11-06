@@ -10,7 +10,6 @@ import toast from "react-hot-toast";
 const Home = () => {
   const { user } = useAuth();
   const [adding, setAdding] = useState(false);
-  const [vControls, setVControls] = useState([]);
   const [volunteers, setVolunteers] = useState(user.volunteers || []);
   const [vol, setVol] = useState(null);
   const now = new Date();
@@ -27,21 +26,6 @@ const Home = () => {
   useEffect(() => {
     adding === false && setVol(null);
   }, [adding]);
-
-  useEffect(() => {
-    setVol(null);
-    setVControls(Array(volunteers.length).fill(false));
-  }, [volunteers]);
-
-  const deleteVolunteer = async (id) => {
-    if (!confirm("Are you sure you want to delete this volunteer?")) return;
-    const response = await handleDelete("delete_volunteer", id);
-    if (!response.success) {
-      toast.error(response.message);
-    }
-    setVolunteers((prev) => prev.filter((volunteer) => volunteer.id !== id));
-    toast.success(response.message);
-  };
 
   return (
     <div className={styles.homeDashboard}>
@@ -66,27 +50,13 @@ const Home = () => {
               <li
                 key={id}
                 onClick={() => {
-                  const updated = [...vControls];
-                  updated[index] = !updated[index];
-                  setVControls(updated);
+                  setVol({ id, first_name, last_name });
+                  setAdding(true);
                 }}
               >
                 <span>
                   {first_name} {last_name}
                 </span>
-                {vControls[index] && (
-                  <span className={styles.vControlsButtons}>
-                    <button
-                      onClick={() => {
-                        setVol({ id, first_name, last_name });
-                        setAdding(true);
-                      }}
-                    >
-                      edit
-                    </button>
-                    <button onClick={() => deleteVolunteer(id)}>delete</button>
-                  </span>
-                )}
               </li>
             ))}
           <li className={styles.addLiButton} onClick={() => setAdding(true)}>

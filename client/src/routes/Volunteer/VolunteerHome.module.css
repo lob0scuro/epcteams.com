@@ -4,4 +4,16 @@
   flex-direction: column;
   align-items: center;
   width: 90%;
+  height: 100%;
+  justify-content: flex-start;
+}
+
+.volunteerHomeContainer h1 {
+  text-align: center;
+}
+
+.volunteerHomeContainer select {
+  border: 2px solid #fff;
+  padding-inline: 5px;
+  color: var(--black);
 }

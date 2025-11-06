@@ -1,10 +1,11 @@
 import { useAuth } from "../../Context/AuthContext";
 import styles from "./Footer.module.css";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Footer = () => {
   const { user, logout } = useAuth();
+  const location = useLocation();
 
   const handleLogout = () => {
     logout();
@@ -14,12 +15,21 @@ const Footer = () => {
     <footer>
       {user ? (
         <>
-          <Link
-            to="/volunteer"
-            style={{ color: "var(--blue)", textDecoration: "underline" }}
-          >
-            Schedule View
-          </Link>
+          {location.pathname === "/volunteer" ? (
+            <Link
+              to={"/"}
+              style={{ color: "var(--blue)", textDecoration: "underline" }}
+            >
+              Home
+            </Link>
+          ) : (
+            <Link
+              to="/volunteer"
+              style={{ color: "var(--blue)", textDecoration: "underline" }}
+            >
+              Schedule View
+            </Link>
+          )}
           <p className="logoutLink" onClick={handleLogout}>
             Logout
           </p>
