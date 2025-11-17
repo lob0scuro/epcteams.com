@@ -82,7 +82,9 @@ const VolunteerHome = () => {
       </select>
       <div className={styles.volunteerHomeScheduleBlock}>
         {schedule?.length === 0 ? (
-          <p style={{ marginTop: "1rem" }}>Select a Team to get schedule</p>
+          <p style={{ marginTop: "1rem", textAlign: "center" }}>
+            Select a Team to get schedule
+          </p>
         ) : (
           sundays.map((date, index) => (
             <div

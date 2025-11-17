@@ -31,13 +31,17 @@ const Schedule = ({ team }) => {
 
   if (team === undefined) {
     return (
-      <p style={{ marginTop: "2rem", fontStyle: "italic" }}>
+      <p
+        style={{ marginTop: "2rem", fontStyle: "italic", textAlign: "center" }}
+      >
         Team Lead has not scheduled for this month yet.
       </p>
     );
   } else if (schedule?.length === 0) {
     return (
-      <p style={{ marginTop: "2rem", fontStyle: "italic" }}>
+      <p
+        style={{ marginTop: "2rem", fontStyle: "italic", textAlign: "center" }}
+      >
         Please select a team to view the schedule.
       </p>
     );
